@@ -1,7 +1,5 @@
 package spring.test.spring_demo.Product;
 
-import java.beans.Transient;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -69,15 +67,8 @@ public class ProductEntity {
         this.cost = cost;
     }
 
-        @Column(nullable = true , length = 64)
-        private String image;
-
-        @Transient
-        public String getImagePath() {
-            if (image == null || id == null ) return null;
-            return "/product-images/"+id + "/" + image; 
-        }
-
+    @Lob
+    private String image;
     public String getImage() {
         return image;
     }
@@ -107,20 +98,31 @@ public class ProductEntity {
         this.name = name;
     }
 
-    @Lob
-    @Column(name = "image_data", nullable = true)
-    private byte[] imageData;
-
-    public byte[] getImageData() {
-        return imageData;
-    }
-
-    public void setImageData(byte[] imageData) {
-        this.imageData = imageData;
-    }
-
-
     public ProductEntity() {
 
+    }
+
+    public ProductEntity(String name, String code, double cost, double price, String country, String image, String description) {
+        this.name = name;
+        this.code = code;
+        this.cost = cost;
+        this.price = price;
+        this.country = country;
+        this.image = image;
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", cost=" + cost +
+                ", price=" + price +
+                ", country='" + country + '\'' +
+                ", image='" + image + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }
